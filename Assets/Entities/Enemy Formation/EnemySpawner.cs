@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour {
 	public float height = 5f;
 	public float speed;
 	public float padding;
+	public float spawnDelay;
 
 	float xMin;
 	float xMax;
@@ -15,14 +16,32 @@ public class EnemySpawner : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		foreach(Transform child in this.transform){
-			//spawn a new enemy at a position within the formation
-			GameObject enemy = GameObject.Instantiate(enemyPrefab,child.transform.position,Quaternion.identity) as GameObject;
-			enemy.transform.parent = child;
-		}
-	
+		SpawnEnemiesUntilFormationFull();
+		
 		xMin = Helpers.GetLeftScreenBound(transform.position.z) + padding;
 		xMax = Helpers.GetRightScreenBound(transform.position.z) - padding;
+	}
+	
+//	void SpawnEnemiesInFormation(){
+//		//spawn a new enemy at a position within the formation
+//		foreach(Transform childPosition in this.transform){
+//			GameObject enemy = GameObject.Instantiate(enemyPrefab,childPosition.transform.position,Quaternion.identity) as GameObject;
+//			//set the enemy's parent to be a position in the formation
+//			enemy.transform.parent = childPosition;
+//		}
+//	}
+	
+	void SpawnEnemiesUntilFormationFull(){
+		Transform nextPosition = NextFreePosition();
+		if(nextPosition){
+			GameObject enemy = GameObject.Instantiate(enemyPrefab,nextPosition.transform.position,Quaternion.identity) as GameObject;
+			//set the enemy's parent to be a position in the formation
+			enemy.transform.parent = nextPosition;
+		}
+		if(NextFreePosition()){
+			Invoke("SpawnEnemiesUntilFormationFull", spawnDelay);
+		}
+
 	}
 	
 	void OnDrawGizmos(){
@@ -49,8 +68,35 @@ public class EnemySpawner : MonoBehaviour {
 			moveRight = true;
 		}
 		
-//		float clampedX = Mathf.Clamp(transform.position.x,xMin,xMax);
-//		transform.position = new Vector3(clampedX,transform.position.y);
+		if(FormationEmpty()){
+			SpawnEnemiesUntilFormationFull();
+		}
+
+	
+	}
+	
+	Transform NextFreePosition(){
+		//loop through all the positions in the formation
+		foreach(Transform childPosition in transform){
+			//see if the position has an enemy on it
+			if(childPosition.childCount == 0){
+				return childPosition;
+			}
+		}
+		//No free positions found
+		return null;
+		
+	}
+	
+	bool FormationEmpty(){
+		//loop through all the positions in the formation
+		foreach(Transform childPosition in transform){
+			//see if the position has an enemy on it
+			if(childPosition.childCount > 0){
+				return false;
+			}
+		}
+		return true;
 	
 	}
 }

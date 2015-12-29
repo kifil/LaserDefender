@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour {
 		if(randomShotProbability == 0){
 			randomShotProbability = Random.value;
 		}
-		//TODO: this probability doesnt seem right to me
+
 		float currentProbability = timeElapsedInSecondsSinceLastShot * shotsPerSecond;
 		if(randomShotProbability < currentProbability){
 			FireProjectile();
