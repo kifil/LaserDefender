@@ -5,24 +5,56 @@ public class PlayerController : MonoBehaviour {
 
 	public float speed;
 	public float padding = 1.0f;
+	public GameObject playerLaserPrefab;
+	public float projectileSpeed;
+	public float projectileRate;
+	public float health;
 	
 	float xMin;
 	float xMax;
 	// Use this for initialization
 	void Start () {
-		float zDistance = transform.position.z - Camera.main.transform.position.z;
-		Vector3 leftBound = Camera.main.ViewportToWorldPoint(new Vector3(0,0,zDistance));
-		Vector3 rightBound = Camera.main.ViewportToWorldPoint(new Vector3(1,0,zDistance));
-		xMin = leftBound.x + padding;
-		xMax = rightBound.x - padding;
+		xMin = Helpers.GetLeftScreenBound(transform.position.z) + padding;
+		xMax = Helpers.GetRightScreenBound(transform.position.z) - padding;
 	} 
 	
 	// Update is called once per frame
 	void Update () {
+		HandleMovement();
+		HandleFiring();
+	}
 	
+	void OnTriggerEnter2D(Collider2D collider){
+		Projectile projectile = collider.gameObject.GetComponent<Projectile>();
+		
+		//if an object has a projectile script attached to it
+		if(projectile){
+			Debug.Log("player hit!");
+			projectile.Hit();
+		}
+		
+		
+	}
+	
+	void FireProjectile(){
+		Vector3 projectileLocation = transform.position + new Vector3(0,1);
+		GameObject laserShot = GameObject.Instantiate(playerLaserPrefab,projectileLocation,Quaternion.identity) as GameObject;
+		laserShot.rigidbody2D.velocity = Vector2.up * projectileSpeed;
+	}
+	
+	void HandleFiring(){
+		if(Input.GetKeyDown(KeyCode.Space)){
+			InvokeRepeating("FireProjectile",0.00001f, projectileRate);
+		}
+		if(Input.GetKeyUp(KeyCode.Space)){
+			CancelInvoke("FireProjectile");
+		}
+	}
+	
+	void HandleMovement(){
 		if(Input.GetKey(KeyCode.RightArrow)){
 			this.transform.position += new Vector3(speed * Time.deltaTime,0f, 0f);
-		
+			
 		}
 		if(Input.GetKey(KeyCode.LeftArrow)){
 			this.transform.position += new Vector3(-speed * Time.deltaTime,0f, 0f);
