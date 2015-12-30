@@ -152,7 +152,7 @@ RectTransform:
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 0, y: -113}
-  m_SizeDelta: {x: 161, y: 48}
+  m_SizeDelta: {x: 225, y: 48}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &823066111
 MonoBehaviour:
@@ -173,9 +173,9 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0, g: 1, b: .0482759476, a: 1}
-    m_PressedColor: {r: 1, g: .434482723, b: 0, a: 1}
+    m_NormalColor: {r: 0, g: 1, b: .215686277, a: 1}
+    m_HighlightedColor: {r: .944827557, g: 1, b: 0, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: .784313738, g: .784313738, b: .784313738, a: .501960814}
     m_ColorMultiplier: 1
     m_FadeDuration: .100000001
@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bedae2df0a7090045b869342a38b9010, type: 3}
+    m_Font: {fileID: 12800000, guid: 11fddd46cf9ff5f4499e2b4e01bc0853, type: 3}
     m_FontSize: 41
     m_FontStyle: 0
     m_BestFit: 0
@@ -368,8 +368,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 0, y: -13}
-  m_SizeDelta: {x: 370, y: 80}
+  m_AnchoredPosition: {x: 0, y: 16}
+  m_SizeDelta: {x: 449, y: 90}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &995522708
 MonoBehaviour:
@@ -383,9 +383,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: .960446298, b: .426470578, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: .607843161}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bedae2df0a7090045b869342a38b9010, type: 3}
+    m_Font: {fileID: 12800000, guid: 11fddd46cf9ff5f4499e2b4e01bc0853, type: 3}
     m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
@@ -396,7 +396,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Break all the blocks to win!
+  m_Text: Defend humanity by shooting down the bad guys!
 --- !u!222 &995522709
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -772,8 +772,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 0, y: 110}
-  m_SizeDelta: {x: 464, y: 129}
+  m_AnchoredPosition: {x: 0, y: 157}
+  m_SizeDelta: {x: 521, y: 166}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1985088239
 MonoBehaviour:
@@ -787,10 +787,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: .324949652, g: .235294104, b: 1, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bedae2df0a7090045b869342a38b9010, type: 3}
-    m_FontSize: 52
+    m_Font: {fileID: 12800000, guid: 11fddd46cf9ff5f4499e2b4e01bc0853, type: 3}
+    m_FontSize: 67
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -800,7 +800,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Block Breaker!
+  m_Text: "Laser \nDefender"
 --- !u!222 &1985088240
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -861,9 +861,9 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0, g: 1, b: .0482759476, a: 1}
-    m_PressedColor: {r: 1, g: .434482723, b: 0, a: 1}
+    m_NormalColor: {r: 1, g: 0, b: 0, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 0, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: .784313738, g: .784313738, b: .784313738, a: .501960814}
     m_ColorMultiplier: 1
     m_FadeDuration: .100000001
@@ -909,7 +909,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bedae2df0a7090045b869342a38b9010, type: 3}
+    m_Font: {fileID: 12800000, guid: 11fddd46cf9ff5f4499e2b4e01bc0853, type: 3}
     m_FontSize: 41
     m_FontStyle: 0
     m_BestFit: 0

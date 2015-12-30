@@ -7,9 +7,13 @@ public class Enemy : MonoBehaviour {
 	public GameObject projectile;
 	public float projectileSpeed;
 	public float shotsPerSecond;
+	public int pointValue = 150;
+	public AudioClip fireSound;
+	public AudioClip explosionSound;
 	
 	float timeElapsedInSecondsSinceLastShot = 0;
 	float randomShotProbability = 0;
+	ScoreKeeper scoreKeeper;
 
 	void OnTriggerEnter2D(Collider2D collider){
 		Projectile projectile = collider.gameObject.GetComponent<Projectile>();
@@ -19,24 +23,28 @@ public class Enemy : MonoBehaviour {
 			health -= projectile.GetDamage();
 			projectile.Hit();
 			if(health <=0 ){
-				Destroy(gameObject);
+				Die();
 			}
 			
 		}
+	}
 	
-	
+	void Die(){
+		scoreKeeper.Score(pointValue);
+		AudioSource.PlayClipAtPoint(explosionSound, this.transform.position, 0.1f);
+		Destroy(gameObject);
 	}
 	
 	void FireProjectile(){
-		Vector3 startPosition = this.transform.position + new Vector3(0,-1);
-		GameObject laserShot = GameObject.Instantiate(projectile,startPosition,Quaternion.identity) as GameObject;
+		AudioSource.PlayClipAtPoint(fireSound, this.transform.position, 0.1f);
+		GameObject laserShot = GameObject.Instantiate(projectile,transform.position,Quaternion.identity) as GameObject;
 		laserShot.rigidbody2D.velocity = Vector3.down * projectileSpeed;
 	}
 
 
 	// Use this for initialization
 	void Start () {
-	
+		scoreKeeper = GameObject.Find("Score").GetComponent<ScoreKeeper>();
 	}
 	
 	// Update is called once per frame
@@ -52,8 +60,6 @@ public class Enemy : MonoBehaviour {
 			timeElapsedInSecondsSinceLastShot = 0;
 			randomShotProbability = 0;
 		}
-		
-		
-	
 	}
+	
 }

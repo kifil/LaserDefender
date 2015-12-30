@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour {
 	public float projectileSpeed;
 	public float projectileRate;
 	public float health;
+	public AudioClip fireSound;
 	
 	float xMin;
 	float xMax;
@@ -30,15 +31,27 @@ public class PlayerController : MonoBehaviour {
 		//if an object has a projectile script attached to it
 		if(projectile){
 			Debug.Log("player hit!");
+			health -= projectile.GetDamage();
 			projectile.Hit();
+			if(health <=0){
+				Die ();
+			}
 		}
 		
 		
 	}
 	
+	void Die(){
+		//TODO explosion sounds and graphic
+		LevelManager levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
+		levelManager.LoadLevel("Win");
+		Destroy(gameObject);
+	}
+	
 	void FireProjectile(){
-		Vector3 projectileLocation = transform.position + new Vector3(0,1);
-		GameObject laserShot = GameObject.Instantiate(playerLaserPrefab,projectileLocation,Quaternion.identity) as GameObject;
+		AudioSource.PlayClipAtPoint(fireSound,this.transform.position,0.1f);
+//		Vector3 projectileLocation = transform.position + new Vector3(0,transform.localScale.y / 2);
+		GameObject laserShot = GameObject.Instantiate(playerLaserPrefab,transform.position,Quaternion.identity) as GameObject;
 		laserShot.rigidbody2D.velocity = Vector2.up * projectileSpeed;
 	}
 	
