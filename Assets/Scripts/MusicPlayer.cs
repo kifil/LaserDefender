@@ -5,11 +5,11 @@ public class MusicPlayer : MonoBehaviour {
 	
 	static MusicPlayer instance = null;
 	
-//	public MusicPlayer(){
-//		musicPlayersCreated++;
-//		print ("musics: " + musicPlayersCreated);
-//	}
-// music player awake and start is only called when there has been a muic plaeyer placed in the scene
+	public AudioClip startClip;
+	public AudioClip gameClip;
+	public AudioClip endClip;
+	
+	private AudioSource myAudioSource;
 	
 	void Awake (){
 		if(instance != null){
@@ -19,11 +19,33 @@ public class MusicPlayer : MonoBehaviour {
 		else{
 			instance = this;
 			GameObject.DontDestroyOnLoad(gameObject);
+			myAudioSource = GetComponent<AudioSource>();
+			//default clip
+			myAudioSource.clip = startClip;
+			myAudioSource.loop = true;
+			myAudioSource.Play();
 		}
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	//build in function that is called when a level is changed
+	void OnLevelWasLoaded(int level){
+		Debug.Log ("music plyaer  loaded level"+ level);
+		
+		myAudioSource.Stop();
+		
+		if(level == 0){
+			myAudioSource.clip = startClip;
+		}
+		else if(level == 1){
+			myAudioSource.clip = gameClip;
+		}
+		else if(level == 2){
+			myAudioSource.clip = endClip;
+		}
+	
+		myAudioSource.Play();
 	
 	}
+
+
 }
