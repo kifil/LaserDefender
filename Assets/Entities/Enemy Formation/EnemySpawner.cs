@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemySpawner : MonoBehaviour {
 
-	public GameObject enemyPrefab;
+	public GameObject[] enemyPrefabs;
 	public float width = 10f;
 	public float height = 5f;
 	public float speed;
@@ -13,28 +13,21 @@ public class EnemySpawner : MonoBehaviour {
 	float xMin;
 	float xMax;
 	bool moveRight = true;
+	WaveKeeper waveKeeper;
 	
 	// Use this for initialization
 	void Start () {
-		SpawnEnemiesUntilFormationFull();
-		
 		xMin = Helpers.GetLeftScreenBound(transform.position.z) + padding;
 		xMax = Helpers.GetRightScreenBound(transform.position.z) - padding;
+		waveKeeper = GameObject.Find("Wave").GetComponent<WaveKeeper>();
+		SpawnEnemiesUntilFormationFull();
 	}
-	
-//	void SpawnEnemiesInFormation(){
-//		//spawn a new enemy at a position within the formation
-//		foreach(Transform childPosition in this.transform){
-//			GameObject enemy = GameObject.Instantiate(enemyPrefab,childPosition.transform.position,Quaternion.identity) as GameObject;
-//			//set the enemy's parent to be a position in the formation
-//			enemy.transform.parent = childPosition;
-//		}
-//	}
 	
 	void SpawnEnemiesUntilFormationFull(){
 		Transform nextPosition = NextFreePosition();
+		int enemySpawnWave = waveKeeper.GetCurrentWave() % 3;
 		if(nextPosition){
-			GameObject enemy = GameObject.Instantiate(enemyPrefab,nextPosition.transform.position,Quaternion.identity) as GameObject;
+			GameObject enemy = GameObject.Instantiate(enemyPrefabs[enemySpawnWave],nextPosition.transform.position,Quaternion.identity) as GameObject;
 			//set the enemy's parent to be a position in the formation
 			enemy.transform.parent = nextPosition;
 		}
@@ -96,6 +89,7 @@ public class EnemySpawner : MonoBehaviour {
 				return false;
 			}
 		}
+		waveKeeper.NextWave();
 		return true;
 	
 	}

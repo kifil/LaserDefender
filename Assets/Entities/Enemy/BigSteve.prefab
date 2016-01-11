@@ -31,7 +31,7 @@ GameObject:
   - 50: {fileID: 5097914}
   - 95: {fileID: 9550150}
   m_Layer: 10
-  m_Name: Enemy
+  m_Name: BigSteve
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

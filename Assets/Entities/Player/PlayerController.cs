@@ -1,44 +1,66 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
-
 	public float speed;
 	public float padding = 1.0f;
 	public GameObject playerLaserPrefab;
 	public float projectileSpeed;
 	public float projectileRate;
-	public float health;
+	public float maxHealth;
 	public AudioClip fireSound;
+	public bool isInvulnerable = false;
+	public Slider shieldSlider;
+	public float shieldRegenerationRate;
+	public float shieldRegenerationAmount;
 	
-	float xMin;
-	float xMax;
+	private float health;
+	private float xMin;
+	private float xMax;
 	// Use this for initialization
 	void Start () {
+		health = maxHealth;
 		xMin = Helpers.GetLeftScreenBound(transform.position.z) + padding;
 		xMax = Helpers.GetRightScreenBound(transform.position.z) - padding;
+		SliderBar shieldSliderBar = shieldSlider.GetComponent<SliderBar>();
+		shieldSliderBar.SetMaxValue(health);
+		InvokeRepeating("RegenerateShields",0.0001f,shieldRegenerationRate);
 	} 
 	
 	// Update is called once per frame
 	void Update () {
 		HandleMovement();
 		HandleFiring();
+		
+	}
+	
+	void RegenerateShields(){
+		UpdateHealth(shieldRegenerationAmount);
 	}
 	
 	void OnTriggerEnter2D(Collider2D collider){
 		Projectile projectile = collider.gameObject.GetComponent<Projectile>();
-		
 		//if an object has a projectile script attached to it
 		if(projectile){
-			Debug.Log("player hit!");
-			health -= projectile.GetDamage();
-			projectile.Hit();
-			if(health <=0){
-				Die ();
-			}
+			ProjectileHit(projectile);
 		}
-		
-		
+	}
+	
+	void ProjectileHit(Projectile projectile){
+		UpdateHealth(-projectile.GetDamage());
+		projectile.Hit();
+		if(health <=0 && !isInvulnerable){
+			Die ();
+		}
+	}
+	
+	void UpdateHealth(float healthChange){
+		health += healthChange;
+		if(health > maxHealth){
+			health = maxHealth;
+		}
+		shieldSlider.value = health;
 	}
 	
 	void Die(){
