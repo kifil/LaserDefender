@@ -2,8 +2,6 @@
 using System.Collections;
 
 public class EnemySpawner : MonoBehaviour {
-
-	public GameObject[] enemyPrefabs;
 	public float width = 10f;
 	public float height = 5f;
 	public float speed;
@@ -25,9 +23,10 @@ public class EnemySpawner : MonoBehaviour {
 	
 	void SpawnEnemiesUntilFormationFull(){
 		Transform nextPosition = NextFreePosition();
-		int enemySpawnWave = waveKeeper.GetCurrentWave() % 3;
+
 		if(nextPosition){
-			GameObject enemy = GameObject.Instantiate(enemyPrefabs[enemySpawnWave],nextPosition.transform.position,Quaternion.identity) as GameObject;
+			GameObject enemy = GameObject.Instantiate(waveKeeper.EnemyForCurrentWave(),nextPosition.transform.position,Quaternion.identity) as GameObject;
+			enemy.GetComponent<Enemy>().SetDifficulty(waveKeeper.CurrentDifficulty());
 			//set the enemy's parent to be a position in the formation
 			enemy.transform.parent = nextPosition;
 		}
