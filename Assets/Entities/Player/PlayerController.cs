@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour {
 	public float speed;
 	public float padding = 1.0f;
 	public GameObject playerLaserPrefab;
+	public GameObject playerMindControlPrefab;
 	public float projectileSpeed;
 	public float projectileRate;
 	public float maxHealth;
@@ -77,12 +78,23 @@ public class PlayerController : MonoBehaviour {
 		laserShot.rigidbody2D.velocity = Vector2.up * projectileSpeed;
 	}
 	
+	void FireMindControl(){
+	//TODO: update sound
+		AudioSource.PlayClipAtPoint(fireSound,this.transform.position,0.1f);
+		//		Vector3 projectileLocation = transform.position + new Vector3(0,transform.localScale.y / 2);
+		GameObject mindShot = GameObject.Instantiate(playerMindControlPrefab,transform.position,Quaternion.identity) as GameObject;
+		mindShot.rigidbody2D.velocity = Vector2.up * projectileSpeed;
+	}
+	
 	void HandleFiring(){
 		if(Input.GetKeyDown(KeyCode.Space)){
 			InvokeRepeating("FireProjectile",0.00001f, projectileRate);
 		}
 		if(Input.GetKeyUp(KeyCode.Space)){
 			CancelInvoke("FireProjectile");
+		}
+		if(Input.GetKeyDown(KeyCode.C)){
+			FireMindControl();
 		}
 	}
 	
@@ -97,5 +109,18 @@ public class PlayerController : MonoBehaviour {
 		
 		float clampedX = Mathf.Clamp(transform.position.x,xMin,xMax);
 		transform.position = new Vector3(clampedX,transform.position.y, 0f);
+	}
+	
+	public Transform NextFreeFriendlyPosition(){
+		//loop through all the positions in the formation
+		foreach(Transform childPosition in transform){
+			//see if the position has an enemy on it
+			if(childPosition.childCount == 0){
+				return childPosition;
+			}
+		}
+		//No free positions found
+		return null;
+		
 	}
 }

@@ -27,7 +27,7 @@ public class WaveKeeper : MonoBehaviour {
 		return currentWave;
 	}
 	
-	int NumberOfRoundsCompleted(){
+	public int NumberOfRoundsCompleted(){
 		int roundsCompleted =  currentWave / enemyPrefabs.Length;
 		return roundsCompleted;
 	}
