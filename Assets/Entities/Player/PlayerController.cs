@@ -15,18 +15,26 @@ public class PlayerController : MonoBehaviour {
 	public Slider shieldSlider;
 	public float shieldRegenerationRate;
 	public float shieldRegenerationAmount;
+	public Slider mindControlSlider;
+	public float mindControlRegenerationRate;
+	public AudioClip mindControlLaunchSound;
 	
 	private float health;
 	private float xMin;
 	private float xMax;
+	private float mindControlCharge =0f;
 	// Use this for initialization
 	void Start () {
 		health = maxHealth;
 		xMin = Helpers.GetLeftScreenBound(transform.position.z) + padding;
 		xMax = Helpers.GetRightScreenBound(transform.position.z) - padding;
 		SliderBar shieldSliderBar = shieldSlider.GetComponent<SliderBar>();
+		SliderBar mindControlSliderBar = mindControlSlider.GetComponent<SliderBar>();
+		mindControlSlider.value = mindControlCharge;
+		mindControlSliderBar.SetMaxValue(100);
 		shieldSliderBar.SetMaxValue(health);
-		InvokeRepeating("RegenerateShields",0.0001f,shieldRegenerationRate);
+		InvokeRepeating("RegenerateShields",0.0001f,1/shieldRegenerationRate);
+		InvokeRepeating("RegenerateMindControlCharge",0.0001f,1/mindControlRegenerationRate);
 	} 
 	
 	// Update is called once per frame
@@ -38,6 +46,13 @@ public class PlayerController : MonoBehaviour {
 	
 	void RegenerateShields(){
 		UpdateHealth(shieldRegenerationAmount);
+	}
+	
+	void RegenerateMindControlCharge(){
+		if(mindControlCharge < 100f){
+			mindControlCharge += 0.5f;
+		}
+		mindControlSlider.value = mindControlCharge;
 	}
 	
 	void OnTriggerEnter2D(Collider2D collider){
@@ -80,10 +95,13 @@ public class PlayerController : MonoBehaviour {
 	
 	void FireMindControl(){
 	//TODO: update sound
-		AudioSource.PlayClipAtPoint(fireSound,this.transform.position,0.1f);
+		mindControlCharge = 0;
+		mindControlSlider.value =0;
+		AudioSource.PlayClipAtPoint(mindControlLaunchSound,this.transform.position,0.1f);
 		//		Vector3 projectileLocation = transform.position + new Vector3(0,transform.localScale.y / 2);
 		GameObject mindShot = GameObject.Instantiate(playerMindControlPrefab,transform.position,Quaternion.identity) as GameObject;
 		mindShot.rigidbody2D.velocity = Vector2.up * projectileSpeed;
+		
 	}
 	
 	void HandleFiring(){
@@ -94,7 +112,10 @@ public class PlayerController : MonoBehaviour {
 			CancelInvoke("FireProjectile");
 		}
 		if(Input.GetKeyDown(KeyCode.C)){
-			FireMindControl();
+			if(mindControlCharge >= 100f){
+				FireMindControl();
+			}
+			
 		}
 	}
 	

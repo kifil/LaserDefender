@@ -116,11 +116,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 300
   projectile: {fileID: 141156, guid: 821d427059c97d04f80ce1f6ef2fcd91, type: 2}
+  mindControlledProjectile: {fileID: 141156, guid: 84a76de2f8368cd44aba2c8b1e78c032,
+    type: 2}
   projectileSpeed: 1
   shotsPerSecond: .75
   pointValue: 200
   fireSound: {fileID: 8300000, guid: 3d9d57f3bde03cc47877c0433edd3520, type: 3}
   explosionSound: {fileID: 8300000, guid: f1391693d52b8e34f9dd313b4551a394, type: 3}
+  positionPrefab: {fileID: 166834, guid: 35da84d02d53aef48bebc2a4667e2f05, type: 2}
 --- !u!198 &19809994
 ParticleSystem:
   m_ObjectHideFlags: 1

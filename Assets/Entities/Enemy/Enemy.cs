@@ -10,9 +10,11 @@ public class Enemy : MonoBehaviour {
 	public float shotsPerSecond;
 	public int pointValue = 150;
 	public AudioClip fireSound;
+	public AudioClip mindControlLaunchSound;
 	public AudioClip explosionSound;
 	Enemy enemyPrefab;
 	public GameObject positionPrefab;
+	public bool isInvulnerable = false;
 	
 	float timeElapsedInSecondsSinceLastShot = 0;
 	float randomShotProbability = 0;
@@ -81,12 +83,13 @@ public class Enemy : MonoBehaviour {
 		
 		//if an object has a projectile script attached to it
 		if(projectile){
-			health -= projectile.GetDamage();
 			projectile.Hit();
-			if(health <=0 ){
+			if(!isInvulnerable){
+					health -= projectile.GetDamage();
+			}
+			if(health <=0){
 				Die();
 			}
-			
 		}
 		if(mindBomb){
 			MindControlHit();
