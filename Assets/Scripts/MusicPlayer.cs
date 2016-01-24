@@ -29,20 +29,21 @@ public class MusicPlayer : MonoBehaviour {
 	
 	//build in function that is called when a level is changed
 	void OnLevelWasLoaded(int level){
-		myAudioSource.Stop();
+		if(myAudioSource){
+			myAudioSource.Stop();
 		
-		if(level == 0){
-			myAudioSource.clip = startClip;
+			if(level == 0){
+				myAudioSource.clip = startClip;
+			}
+			else if(level == 1){
+				myAudioSource.clip = gameClip;
+			}
+			else if(level == 2){
+				myAudioSource.clip = endClip;
+			}
+		
+			myAudioSource.Play();
 		}
-		else if(level == 1){
-			myAudioSource.clip = gameClip;
-		}
-		else if(level == 2){
-			myAudioSource.clip = endClip;
-		}
-	
-		myAudioSource.Play();
-	
 	}
 
 
