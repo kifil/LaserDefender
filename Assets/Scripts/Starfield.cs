@@ -12,9 +12,4 @@ public class Starfield : MonoBehaviour {
 
 	}
 	
-	// Update is called once per frame
-	void Update () {
-//		starfield.startSpeed = Random.Range(minStarSpeed,maxStarSpeed);
-	
-	}
 }
