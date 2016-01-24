@@ -593,11 +593,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Space: fire
+  m_Text: 'Space: Fire
 
-    Arrows: move
+    Arrows: Move
 
-    Ctrl: Hacking drone'
+    F: Hacking drone'
 --- !u!222 &1195304104
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -94,7 +94,6 @@ public class PlayerController : MonoBehaviour {
 	}
 	
 	void FireMindControl(){
-	//TODO: update sound
 		mindControlCharge = 0;
 		mindControlSlider.value =0;
 		AudioSource.PlayClipAtPoint(mindControlLaunchSound,this.transform.position,0.1f);
@@ -111,7 +110,7 @@ public class PlayerController : MonoBehaviour {
 		if(Input.GetKeyUp(KeyCode.Space)){
 			CancelInvoke("FireProjectile");
 		}
-		if(Input.GetKeyDown(KeyCode.C)){
+		if(Input.GetKeyDown(KeyCode.F)){
 			if(mindControlCharge >= 100f){
 				FireMindControl();
 			}

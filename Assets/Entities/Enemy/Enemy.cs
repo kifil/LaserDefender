@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour {
 	public float shotsPerSecond;
 	public int pointValue = 150;
 	public AudioClip fireSound;
-	public AudioClip mindControlLaunchSound;
+
 	public AudioClip explosionSound;
 	Enemy enemyPrefab;
 	public GameObject positionPrefab;
@@ -20,7 +20,6 @@ public class Enemy : MonoBehaviour {
 	float randomShotProbability = 0;
 	ScoreKeeper scoreKeeper;
 	WaveKeeper waveKeeper;
-//	bool isFriendly = false;
 	Animator myAnimtor;
 	bool isMindControlled = false;
 	bool isInFlyState = false;
@@ -60,7 +59,7 @@ public class Enemy : MonoBehaviour {
 		}
 		
 		if(!isMindControlled && myAnimtor.GetCurrentAnimatorStateInfo(0).IsName("MindControlIdle")){
-			//enemy just enetred the mindContol Idle animation, they are not mind controlled
+			//enemy just enetred the mindContol Idle animation, they are now mind controlled
 			if(playerController.NextFreeFriendlyPosition()){
 				//TODO: figure out how to destroy old parent
 				//set to friendlies layer
@@ -119,29 +118,8 @@ public class Enemy : MonoBehaviour {
 	}
 	
 	void MindControlHit(){
-
-//		Animator thisAnimator = GetComponent<Animator>();
-//		AnimationInfo[] thing = myAnimtor.GetNextAnimationClipState(0);
-//		GetComponent<Animator>().Play("Spin");
+		//begins mind control animation sequence
 		myAnimtor.Play("Spin");
-
-		//find a way to animate moving from start to end position
-		//either that or create a vector between start point and detination and just give it that vector until it arrives
-		
-
-		//TODO: when we arrive, set parent transform to destination
-			//give this object a destination transform
-			//on update when this.transform.position == destination.transform.position
-				//this.transform.parent = destination.transform
-			
-		
-		//do animation
-			//spin
-			//fly over to next free spot
-		//reset health
-		//change ship and projectile layers
-		
-	
 	}
 	
 	void Die(){

@@ -13,9 +13,4 @@ public class Position : MonoBehaviour {
 		destinationPosition = des;
 	}
 	
-//	void Update(){
-//		if(this.transform.position == destinationPosition){
-//			this.rigidbody2D.velocity = new Vector2(0,0);
-//		}
-//	}
 }

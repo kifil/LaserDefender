@@ -29,8 +29,6 @@ public class MusicPlayer : MonoBehaviour {
 	
 	//build in function that is called when a level is changed
 	void OnLevelWasLoaded(int level){
-		Debug.Log ("music plyaer  loaded level"+ level);
-		
 		myAudioSource.Stop();
 		
 		if(level == 0){
